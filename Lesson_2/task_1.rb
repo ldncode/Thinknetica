@@ -11,7 +11,7 @@ year = {
           'October' => 31,
           'November' => 30,
           'December' => 31
-       }
+        }
 
 year.each { |month, days| puts "#{month} - #{days} days" if days == 30 }
 
