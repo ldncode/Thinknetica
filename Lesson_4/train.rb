@@ -1,5 +1,5 @@
 class Train
-  attr_accessor :speed
+  attr_accessor :speed, :carriages
   attr_reader :number, :type, :route, :current_station
 
   def initialize(number, type)
@@ -10,7 +10,7 @@ class Train
 
   def add_wagon
     if speed.zero?
-      @quantity += 1
+      @carriages += 1
     else
       puts 'Поезд в движении'
     end
@@ -18,7 +18,7 @@ class Train
 
   def unhook
     if speed.zero?
-      @quantity -= 1
+      @carriages -= 1
     else
       puts 'Поезд в движении'
     end

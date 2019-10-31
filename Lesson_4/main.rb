@@ -42,6 +42,8 @@ class Main
         stations_list
       when 11
         trains_list
+      when 12
+        break
       end
     end
   end
@@ -52,14 +54,15 @@ class Main
     puts 'Создать станцию, введите 1: '
     puts 'Создать поезд, введите 2: '
     puts 'Создать маршрут, введите 3: '
-    puts 'Назначить маршрут поезду, введите 4 : '
-    puts 'Управление станциями, введите 5 : '
-    puts 'Добавить вагон к поезду, введите 6 : '
-    puts 'Отцепит вагон от поезда, введите 7 : '
-    puts 'Переместить поезд по маршруту вперед, введите 8 : '
-    puts 'Переместить поезд по маршруту назад, введите 9 : '
-    puts 'Список станций, введите 10 : '
-    puts 'Список поездов, введите 11 : '
+    puts 'Назначить маршрут поезду, введите 4: '
+    puts 'Управление станциями, введите 5: '
+    puts 'Добавить вагон к поезду, введите 6: '
+    puts 'Отцепит вагон от поезда, введите 7: '
+    puts 'Переместить поезд по маршруту вперед, введите 8: '
+    puts 'Переместить поезд по маршруту назад, введите 9: '
+    puts 'Список станций, введите 10: '
+    puts 'Список поездов, введите 11: '
+    puts 'Выйти из программы, введите 12: '
   end
 
   def create_station
@@ -71,13 +74,14 @@ class Main
   end
 
   def create_train
-    puts 'Введите номер поеда: '
+    puts 'Введите номер поезда: '
     number = gets.chomp.to_i
     puts 'Введите тип поезда (passenger или cargo)?: '
+    type = gets.chomp.to_s
     if type == 'passenger'
-      trains << PassengerTrain.new(number)
-    elsif typy == 'cargo'
-      trains << CargoTrain.new(number)
+      @trains << PassengerTrain.new(number)
+    elsif type == 'cargo'
+      @trains << CargoTrain.new(number)
     else
 
     end
@@ -99,7 +103,7 @@ class Main
     puts 'Выберите конечную станцию маршрута: '
     final_station = select_listing(stations)
     route = Route.new(start_station, final_station)
-    routes << route
+    @routes << route
   end
 
   def set_train_route
