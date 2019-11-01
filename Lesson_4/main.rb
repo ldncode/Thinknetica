@@ -141,10 +141,10 @@ class Main
     train = select_listing(trains)
 
     if train.type == 'passenger'
-      wagon = PassengerCarriages.new
+      wagon = PassengerCarriages.new(places)
       train.add_wagon(wagon)
     elsif train.type == 'cargo'
-      wagon = CargoCarriages.new
+      wagon = CargoCarriages.new(size)
       train.add_wagon(wagon)
     end
   end
