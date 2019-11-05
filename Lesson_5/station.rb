@@ -1,3 +1,5 @@
+require_relative 'instance_counter'
+
 class Station
   include InstanceCounter
 
