@@ -9,18 +9,25 @@ class Train
   attr_accessor :speed, :carriages
   attr_reader :number, :type, :route, :current_station
 
+  FORMAT_NUMBER = /^[a-z0-9]{3} -* {1}[a-z0-9]{2}$/i.freeze
+
   @@all_trains = {}
 
-  def self.find(number)
-    @@all_trains[number]
+  def self.find(id)
+    @@all_trains[id]
   end
 
-  def initialize(number, type)
+  def initialize(id, type)
     @speed = 0
-    @number = number
+    @id = id
     @type = type
-    @@all_trains[number] = self
+    @@all_trains[id] = self
     register_instance
+    validate!
+  end
+
+  def valid?
+    validate!
   end
 
   def add_wagon
@@ -78,5 +85,14 @@ class Train
       puts 'Поезд на начальной станции'
     end
   end
+
+  private
+
+  def validate!
+    if number !~ FORMAT_NUMBER
+      raise ArgumentError, 'Введите корректный номер'
+    end
+  end
+
 end
 
