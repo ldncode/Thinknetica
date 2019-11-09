@@ -108,7 +108,7 @@ class Main
     route = Route.new(start_station, final_station)
     @routes << route
   rescue ArgumentError, 'Введите разные станции'
-    retry 
+    retry
   end
 
   def set_train_route
