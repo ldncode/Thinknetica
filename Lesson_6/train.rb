@@ -9,7 +9,7 @@ class Train
   attr_accessor :speed, :carriages
   attr_reader :number, :type, :route, :current_station
 
-  FORMAT_NUMBER = /^[a-z0-9]{3} -* {1}[a-z0-9]{2}$/i.freeze
+  FORMAT_NUMBER = /^[a-z0-9]{3}-{1}[a-z0-9]{2}$/i.freeze
 
   @@all_trains = {}
 
@@ -31,19 +31,11 @@ class Train
   end
 
   def add_wagon
-    if speed.zero?
-      @carriages += 1
-    else
-      puts 'Поезд в движении'
-    end
+      @carriages += 1 if speed.zero?
   end
 
   def unhook
-    if speed.zero?
-      @carriages -= 1
-    else
-      puts 'Поезд в движении'
-    end
+      @carriages -= 1 if speed.zero?
   end
 
   def add_route(route)
@@ -67,23 +59,17 @@ class Train
   end
 
   def forward
-    if next_station
+    return if next_station.nil?
       @current_station.out(train)
       @current_station = next_station
       @current_station.arrival(train)
-    else
-      puts 'Поезд на конечной станции'
-    end
   end
 
   def backward
-    if prev_station
+    return if prev_station
       @current_station.out(train)
       @current_station = prev_station
       @current_station.arrival(train)
-    else
-      puts 'Поезд на начальной станции'
-    end
   end
 
   private

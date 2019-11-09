@@ -72,7 +72,8 @@ class Main
     name = gets.chomp
     station = Station.new(name)
     @stations << station
-    puts "Вы создали станцию: #{name}"
+  rescue ArgumentError, 'Введите название станции'
+    retry
   end
 
   def create_train
@@ -84,9 +85,9 @@ class Main
       @trains << PassengerTrain.new(number)
     elsif type == 'cargo'
       @trains << CargoTrain.new(number)
-    else
-
     end
+  rescue ArgumentError, 'Введите правильно данные'
+    retry
   end
 
   def show(listing)
@@ -106,6 +107,8 @@ class Main
     final_station = select_listing(stations)
     route = Route.new(start_station, final_station)
     @routes << route
+  rescue ArgumentError, 'Введите разные станции'
+    retry 
   end
 
   def set_train_route
