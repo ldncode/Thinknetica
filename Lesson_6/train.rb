@@ -5,6 +5,7 @@ class Train
 
   include Producer
   include InstanceCounter
+  include Valididation
 
   attr_accessor :speed, :carriages
   attr_reader :number, :type, :route, :current_station
@@ -23,10 +24,6 @@ class Train
     @type = type
     @@all_trains[id] = self
     register_instance
-    validate!
-  end
-
-  def valid?
     validate!
   end
 

@@ -2,6 +2,7 @@ require_relative 'instance_counter'
 
 class Station
   include InstanceCounter
+  include Valididation
 
   attr_reader :train
 
@@ -17,10 +18,6 @@ class Station
     @@stations << self
     register_instance
     valid?
-  end
-
-  def valid?
-    validate!
   end
 
   def arrival(train)

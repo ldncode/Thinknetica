@@ -4,19 +4,13 @@ require_relative 'company'
 
 class Carriages
   include Producer
+  include Valididation
 
   attr_reader :type, :producer
 
   def initialize(type, producer)
     @type = type
     @producer = producer
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   private
