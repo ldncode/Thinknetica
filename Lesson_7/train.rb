@@ -25,6 +25,7 @@ class Train
     @@all_trains[id] = self
     register_instance
     validate!
+    @carriages = []
   end
 
   def add_wagon
@@ -67,6 +68,10 @@ class Train
       @current_station.out(train)
       @current_station = prev_station
       @current_station.arrival(train)
+  end
+
+  def each_carriages
+    @carriages.each {|carriages| yield carriages }
   end
 
   private

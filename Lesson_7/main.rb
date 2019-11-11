@@ -45,6 +45,12 @@ class Main
       when 11
         trains_list
       when 12
+        occupied_carriages
+      when 13
+        list_carriages_train
+      when 14
+        list_trains_station
+      when 15
         break
       end
     end
@@ -64,7 +70,10 @@ class Main
     puts 'Переместить поезд по маршруту назад, введите 9: '
     puts 'Список станций, введите 10: '
     puts 'Список поездов, введите 11: '
-    puts 'Выйти из программы, введите 12: '
+    puts 'Занять место или объем в вагоне, введите 12: '
+    puts 'Список вагонов у поезда, введите 13: '
+    puts 'Список поездов на станции, введите 14: '
+    puts 'Выйти из программы, введите 15: '
   end
 
   def create_station
@@ -184,6 +193,34 @@ class Main
 
   def trains_list
     show(trains)
+  end
+
+  def carriages_list
+    show(carriages)
+  end
+
+  def occupied_carriages
+    show(carriages)
+  end
+
+  def list_carriages_train
+    show(carriages)
+    puts "Список вагонов поезда № '#{train.number}': "
+    train.each_carriages do |carriages|
+      puts "Номер №: #{number}"
+      puts "Тип #{carriages.type}"
+      if carriages.type == 'passenger'
+        puts "Свободных мест: #{carriages.vacant_seats}; Занятых мест: #{carriages.occupied_seats}"
+      elsif wagon.type == 'Грузовой'
+        puts "Свободный объем: #{carriages.vacant_volume}; Занятый объем: #{carriages.occupied_volume}"
+      end
+    end
+  end
+
+  def list_trains_station
+    show(trains)
+    puts "Список поездов на станции '#{station.name}': "
+    station.each_train { |train| puts "Номер № : #{train.number}; Тип: #{train.type}; Вагонов: #{train.carriages.length}" }
   end
 end
 

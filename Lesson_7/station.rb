@@ -17,7 +17,7 @@ class Station
     @trains = []
     @@stations << self
     register_instance
-    valid?
+    validate!
   end
 
   def arrival(train)
@@ -32,12 +32,15 @@ class Station
     puts @trains
   end
 
+  def each_train
+    @trains.each {|train| yield train }
+  end
+
   private
 
   def validate!
     if name.empty?
-      raise ArgumentError
-      puts 'Введите название станции'
+      raise ArgumentError, 'Введите название станции'
     end
   end
 
