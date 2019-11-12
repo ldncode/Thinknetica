@@ -1,6 +1,6 @@
-require_relative 'carriages'
+require_relative 'carriage'
 
-class CargoCarriages < Carriages
+class CargoCarriage < Carriage
   attr_reader :size, :overall, :occupied_volume, :vacant_volume
 
   def initialize(size, overall)

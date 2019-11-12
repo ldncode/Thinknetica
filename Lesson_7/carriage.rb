@@ -1,10 +1,14 @@
 require_relative 'main'
 require_relative 'train'
 require_relative 'company'
+require_relative 'cargo_carriage'
+require_relative 'validation'
+require_relative 'cargo_train'
+ъ
 
-class Carriages
+class Carriage
   include Producer
-  include Valididation
+  include Validation
 
   attr_reader :type, :producer, :overall
 

@@ -1,8 +1,9 @@
 require_relative 'instance_counter'
+require_relative 'validation'
 
 class Station
   include InstanceCounter
-  include Valididation
+  include Validation
 
   attr_reader :train
 
