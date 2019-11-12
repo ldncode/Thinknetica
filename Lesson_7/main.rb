@@ -1,6 +1,8 @@
 require_relative 'station'
 require_relative 'route'
 require_relative 'train'
+require_relative 'cargo_train'
+require_relative 'passenger_train'
 require_relative 'carriage'
 require_relative 'cargo_carriage'
 require_relative 'cargo_train'
@@ -159,10 +161,10 @@ class Main
     train = select_listing(trains)
 
     if train.type == 'passenger'
-      wagon = PassengerCarriages.new(places)
+      wagon = PassengerCarriage.new(places)
       train.add_wagon(wagon)
     elsif train.type == 'cargo'
-      wagon = CargoCarriages.new(size)
+      wagon = CargoCarriage.new(size)
       train.add_wagon(wagon)
     end
   end
