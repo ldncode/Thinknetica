@@ -9,9 +9,9 @@ class Train
   include Validation
 
   attr_accessor :speed, :carriages
-  attr_reader :number, :type, :route, :current_station
+  attr_reader :name, :type, :route, :current_station
 
-  FORMAT_NUMBER = /^[a-z0-9]{3}-{1}[a-z0-9]{2}$/i.freeze
+  FORMAT_NUMBER = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
 
   @@all_trains = {}
 
@@ -19,28 +19,28 @@ class Train
     @@all_trains[id]
   end
 
-  def initialize(id, type)
+  def initialize(name, type)
     @speed = 0
-    @id = id
+    @name = name
     @type = type
-    @@all_trains[id] = self
+    @@all_trains[name] = self
     register_instance
     validate!
     @carriages = []
   end
 
-  def add_wagon
-      @carriages += 1 if speed.zero?
+  def add_wagon(wagon)
+     @carriages << wagon if speed.zero?
   end
 
   def unhook
-      @carriages -= 1 if speed.zero?
+      @carriages << wagon if speed.zero?
   end
 
   def add_route(route)
     @route = route
     @current_station = route.start_station
-    @current_station.arrival(train)
+    @current_station.arrival(self)
   end
 
   def station_index
@@ -59,26 +59,26 @@ class Train
 
   def forward
     return if next_station.nil?
-      @current_station.out(train)
-      @current_station = next_station
-      @current_station.arrival(train)
+    @current_station.out(self)
+    @current_station = next_station
+    @current_station.arrival(self)
   end
 
   def backward
-    return if prev_station
-      @current_station.out(train)
-      @current_station = prev_station
-      @current_station.arrival(train)
+    return if prev_station.nil?
+    @current_station.out(self)
+    @current_station = prev_station
+    @current_station.arrival(self)
   end
 
-  def each_carriages
-    @carriages.each {|carriages| yield carriages }
+  def each_carriage
+    @carriages.each {|carriage| yield carriage }
   end
 
   private
 
   def validate!
-    if number !~ FORMAT_NUMBER
+    if name !~ FORMAT_NUMBER
       raise ArgumentError, 'Введите корректный номер'
     end
   end

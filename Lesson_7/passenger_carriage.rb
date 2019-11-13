@@ -1,18 +1,20 @@
 require_relative 'carriage'
 
 class PassengerCarriage < Carriage
-  attr_reader :places, :overall, :occupied_seats, :vacant_seats
+  attr_reader :places, :occupied_seats
 
-  def initialize(places, overall)
+  def initialize(places)
     @type = 'passenger'
     @places = places
-    @overall = overall
     @occupied_seats = 0
-    @vacant_seats = @overall - @occupied_seats
+  end
+
+  def vacant_seats
+    @places - @occupied_seats
   end
 
   def take_place
-    @occupied_seats += 1
+    @occupied_seats += 1 if vacant_seats > 0
   end
 
 end

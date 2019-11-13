@@ -1,8 +1,6 @@
-require_relative 'main'
-require_relative 'train'
 require_relative 'company'
 require_relative 'validation'
-require_relative 'cargo_train'
+
 
 class Carriage
   include Producer

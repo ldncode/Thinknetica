@@ -15,6 +15,10 @@ class Route
     valid?
   end
 
+  def name
+    "#{start_station.name} - #{final_station.name}"
+  end
+
   def add_station(interval_station)
     @interval_stations << interval_station
   end

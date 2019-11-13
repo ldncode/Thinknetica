@@ -14,6 +14,9 @@ require_relative 'validation'
 
 
 class Main
+
+  attr_reader :stations, :routes, :trains
+
   def initialize
     @trains = []
     @stations = []
@@ -91,25 +94,25 @@ class Main
 
   def create_train
     puts 'Введите номер поезда: '
-    number = gets.chomp.to_i
+    number = gets.chomp
     puts 'Введите тип поезда (passenger или cargo)?: '
-    type = gets.chomp.to_s
+    type = gets.chomp
     if type == 'passenger'
       @trains << PassengerTrain.new(number)
     elsif type == 'cargo'
       @trains << CargoTrain.new(number)
     end
-  rescue ArgumentError
-    puts 'Введите правильно данные'
+  rescue ArgumentError => e
+    puts e.message
     retry
   end
 
   def show(listing)
-    listing.each.with_index(1){ |item, index| puts "#{index}: #{item}" }
+    listing.each.with_index(1){ |item, index| puts "#{index}: #{item.name}" }
   end
 
   def select_listing(listing)
-    entity = gets.to_i
+    listing[gets.to_i - 1]
   end
 
 
@@ -133,6 +136,7 @@ class Main
     puts 'Выберите поезд: '
     show(trains)
     train = select_listing(trains)
+    train.add_route(route)
   end
 
   def control_stations
@@ -146,12 +150,12 @@ class Main
     case station_selection
     when 1
       show(stations)
-      station = select_listing(station)
-      route.ad_station(station)
+      station = select_listing(stations)
+      route.add_station(station)
     when 2
       show(stations)
-      station = select_listing(station)
-      route.delete_station(staition)
+      station = select_listing(stations)
+      route.delete_station(station)
     end
   end
 
@@ -180,14 +184,14 @@ class Main
     puts 'Выберите поезд: '
     show(trains)
     train = select_listing(trains)
-    train.next_station
+    train.forward
   end
 
   def way_back
     puts 'Выберите поезд: '
     show(trains)
     train = select_listing(trains)
-    train.prev_station
+    train.backward
   end
 
   def stations_list
@@ -203,19 +207,30 @@ class Main
   end
 
   def occupied_carriages
+    show(carriages)
+    puts 'Выберите вагон '
+    carriage = select_listing(carriages)
+    if carriage.type == 'passenger'
+      carriage.take_place
+      puts 'Вы заняли место'
+    elsif carriage.type == 'cargo'
+      puts 'Введите объем, который займете '
+      carriage.occupy(gets.to_i)
+      puts 'Вы заняли объем'
+    end
 
   end
 
   def list_carriages_train
     train = select_listing(trains)
     puts "Список вагонов поезда № '#{train.number}': "
-    train.each_carriages do |carriages|
+    train.each_carriage do |carriage|
       puts "Номер №: #{number}"
       puts "Тип #{carriages.type}"
-      if carriages.type == 'passenger'
-        puts "Свободных мест: #{carriages.vacant_seats}; Занятых мест: #{carriages.occupied_seats}"
+      if carriage.type == 'passenger'
+        puts "Свободных мест: #{carriage.vacant_seats}; Занятых мест: #{carriage.occupied_seats}"
       elsif wagon.type == 'Грузовой'
-        puts "Свободный объем: #{carriages.vacant_volume}; Занятый объем: #{carriages.occupied_volume}"
+        puts "Свободный объем: #{carriage.vacant_volume}; Занятый объем: #{carriage.occupied_volume}"
       end
     end
   end
@@ -226,6 +241,9 @@ class Main
     station.each_train { |train| puts "Номер № : #{train.number}; Тип: #{train.type}; Вагонов: #{train.carriages.length}" }
   end
 end
+
+main = Main.new
+main.start
 
 
 
