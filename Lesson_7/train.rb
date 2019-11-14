@@ -30,11 +30,11 @@ class Train
   end
 
   def add_wagon(wagon)
-     @carriages << wagon if speed.zero?
+     @carriages << wagon if speed.zero? && wagon.type == type
   end
 
-  def unhook
-      @carriages << wagon if speed.zero?
+  def unhook(wagon)
+      @carriages.delete(wagon) if speed.zero?
   end
 
   def add_route(route)

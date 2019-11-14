@@ -115,6 +115,17 @@ class Main
     listing[gets.to_i - 1]
   end
 
+  def show_carriges(listing)
+    listing.each.with_index(1) do |carriage, index|
+      if carriage.type == 'passenger'
+        puts "#{index}: Свободных мест: #{carriage.vacant_seats}; Занятых мест: #{carriage.occupied_seats}"
+      elsif carriage.type == 'cargo'
+        puts "#{index}: Свободный объем: #{carriage.vacant_volume}; Занятый объем: #{carriage.occupied_volume}"
+      end
+    end
+  end
+
+
 
   def create_route
     show(stations)
@@ -163,11 +174,14 @@ class Main
     puts 'Выберите поезд: '
     show(trains)
     train = select_listing(trains)
-
     if train.type == 'passenger'
+      puts 'Укажите сколько мест '
+      places = gets.to_i
       wagon = PassengerCarriage.new(places)
       train.add_wagon(wagon)
     elsif train.type == 'cargo'
+      puts 'Укажите объем '
+      size = gets.to_i
       wagon = CargoCarriage.new(size)
       train.add_wagon(wagon)
     end
@@ -207,9 +221,12 @@ class Main
   end
 
   def occupied_carriages
-    show(carriages)
+    puts 'Выберите поезд '
+    show(trains)
+    train = select_listing(trains)
     puts 'Выберите вагон '
-    carriage = select_listing(carriages)
+    show_carriges(train.carriages)
+    carriage = select_listing(train.carriages)
     if carriage.type == 'passenger'
       carriage.take_place
       puts 'Вы заняли место'
@@ -223,22 +240,21 @@ class Main
 
   def list_carriages_train
     train = select_listing(trains)
-    puts "Список вагонов поезда № '#{train.number}': "
+    puts "Список вагонов поезда № '#{train.name}': "
     train.each_carriage do |carriage|
-      puts "Номер №: #{number}"
-      puts "Тип #{carriages.type}"
+      puts "Тип #{carriage.type}"
       if carriage.type == 'passenger'
         puts "Свободных мест: #{carriage.vacant_seats}; Занятых мест: #{carriage.occupied_seats}"
-      elsif wagon.type == 'Грузовой'
+      elsif carriage.type == 'cargo'
         puts "Свободный объем: #{carriage.vacant_volume}; Занятый объем: #{carriage.occupied_volume}"
       end
     end
   end
 
   def list_trains_station
-    show(trains)
+    station = select_listing(stations)
     puts "Список поездов на станции '#{station.name}': "
-    station.each_train { |train| puts "Номер № : #{train.number}; Тип: #{train.type}; Вагонов: #{train.carriages.length}" }
+    station.each_train { |train| puts "Номер № : #{train.name}; Тип: #{train.type}; Вагонов: #{train.carriages.size}" }
   end
 end
 

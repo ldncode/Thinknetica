@@ -6,13 +6,12 @@ class Carriage
   include Producer
   include Validation
 
-  attr_reader :type, :producer, :overall
+  attr_reader :type, :producer
 
-  def initialize(type, producer, overall)
+  def initialize(type, producer)
     @type = type
     @producer = producer
     validate!
-    @overall = overall
   end
 
   private
