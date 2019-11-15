@@ -14,6 +14,6 @@ class CargoCarriage < Carriage
   end
 
   def occupy(volume)
-    @occupied_volume += volume if occupied_volume >= volume
+    @occupied_volume += volume if occupied_volume <= volume
   end
 end
