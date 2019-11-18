@@ -228,11 +228,11 @@ class Main
     show_carriges(train.carriages)
     carriage = select_listing(train.carriages)
     if carriage.type == 'passenger'
-      carriage.take_place
+      carriage.occupy_capacity
       puts 'Вы заняли место'
     elsif carriage.type == 'cargo'
       puts 'Введите объем, который займете '
-      carriage.occupy(gets.to_i)
+      carriage.occupy_capacity(gets.to_i)
       puts 'Вы заняли объем'
     end
 
@@ -244,9 +244,9 @@ class Main
     train.each_carriage do |carriage|
       puts "Тип #{carriage.type}"
       if carriage.type == 'passenger'
-        puts "Свободных мест: #{carriage.vacant_seats}; Занятых мест: #{carriage.occupied_seats}"
+        puts "Свободных мест: #{carriage.free_capacity}; Занятых мест: #{carriage.occupy_capacity}"
       elsif carriage.type == 'cargo'
-        puts "Свободный объем: #{carriage.vacant_volume}; Занятый объем: #{carriage.occupied_volume}"
+        puts "Свободный объем: #{carriage.free_capacity}; Занятый объем: #{carriage.occupy_capacity}"
       end
     end
   end

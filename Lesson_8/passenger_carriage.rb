@@ -8,8 +8,8 @@ class PassengerCarriage < Carriage
     super
   end
 
-  def occupy_capacity(volume)
-    super
+  def occupy_capacity
+    super(1)
   end
 
 end
