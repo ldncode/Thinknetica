@@ -5,7 +5,7 @@ class PassengerCarriage < Carriage
 
   def initialize(capacity)
     @type = 'passenger'
-    super
+    super('passenger', capacity)
   end
 
   def occupy_capacity

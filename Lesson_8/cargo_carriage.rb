@@ -5,6 +5,6 @@ class CargoCarriage < Carriage
 
   def initialize(capacity)
     @type = 'cargo'
-    super
+    super('cargo', capacity)
   end
 end

@@ -26,7 +26,6 @@ class Carriage
   private
 
   def validate!
-      raise ArgumentError, 'Введите точное название производителя' unless producer.empty?
       raise ArgumentError, 'Введите тип вагона' unless types.include?(type)
   end
 end
