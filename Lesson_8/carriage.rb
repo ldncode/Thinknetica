@@ -23,10 +23,4 @@ class Carriage
   def occupy_capacity(volume)
     @occupied_capacity += volume if free_capacity >= volume
   end
-
-  private
-
-  def validate!
-    raise ArgumentError, 'Введите тип вагона' unless types.include?(type)
-  end
 end

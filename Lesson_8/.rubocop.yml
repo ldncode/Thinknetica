@@ -3,10 +3,14 @@ Style/Documentation:
 Metrics/LineLength:
   Max: 100
 Metrics/MethodLength:
-  Max: 20
+  Max: 40
 Metrics/ClassLength:
   Max: 250
 Metrics/AbcSize:
-  Max: 20
+  Max: 25
+Metrics/BlockLength:
+  Max: 35
 Metrics/CyclomaticComplexity:
+  Enabled: false
+Style/ClassVars:
   Enabled: false
