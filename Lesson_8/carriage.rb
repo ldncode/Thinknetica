@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'company'
-require_relative 'validation'
 
 class Carriage
   include Producer
-  include Validation
 
-  attr_reader :type, :producer, :capacity
+  attr_reader :type, :producer, :capacity, :occupied_capacity
 
   def initialize(type, capacity)
     @type = type
-    validate!
     @capacity = capacity
     @occupied_capacity = 0
   end
