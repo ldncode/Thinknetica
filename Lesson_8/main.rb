@@ -118,10 +118,10 @@ class Main
   def show_carriges(listing)
     listing.each.with_index(1) do |carriage, index|
       if carriage.type == 'passenger'
-        puts "#{index}: Свободных мест: #{carriage.free_capacity};
+        puts "#{index}: Свободных мест: #{carriage.free_capacity}
                         Занятых мест: #{carriage.occupy_capacity}"
       elsif carriage.type == 'cargo'
-        puts "#{index}: Свободный объем: #{carriage.free_capacity};
+        puts "#{index}: Свободный объем: #{carriage.free_capacity}
                         Занятый объем: #{carriage.occupy_capacity}"
       end
     end
@@ -243,10 +243,10 @@ class Main
     train.each_carriage do |carriage|
       puts "Тип #{carriage.type}"
       if carriage.type == 'passenger'
-        puts "Свободных мест: #{carriage.free_capacity};
+        puts "Свободных мест: #{carriage.free_capacity}
               Занятых мест: #{carriage.occupy_capacity}"
       elsif carriage.type == 'cargo'
-        puts "Свободный объем: #{carriage.free_capacity};
+        puts "Свободный объем: #{carriage.free_capacity}
               Занятый объем: #{carriage.occupy_capacity}"
       end
     end
