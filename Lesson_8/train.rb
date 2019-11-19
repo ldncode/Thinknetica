@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'company'
 require_relative 'instance_counter'
 require_relative 'validation'
 
 class Train
-
   include Producer
   include InstanceCounter
   include Validation
@@ -30,11 +31,11 @@ class Train
   end
 
   def add_wagon(wagon)
-     @carriages << wagon if speed.zero? && wagon.type == type
+    @carriages << wagon if speed.zero? && wagon.type == type
   end
 
   def unhook(wagon)
-      @carriages.delete(wagon) if speed.zero?
+    @carriages.delete(wagon) if speed.zero?
   end
 
   def add_route(route)
@@ -47,18 +48,17 @@ class Train
     @route.all_stations.index(current_station)
   end
 
-  def  next_station
+  def next_station
     @route.all_stations[station_index + 1]
   end
 
   def prev_station
-    if station_index != 0
-      @route.all_stations[station_index - 1]
-    end
+    @route.all_stations[station_index - 1] if station_index != 0
   end
 
   def forward
     return if next_station.nil?
+
     @current_station.out(self)
     @current_station = next_station
     @current_station.arrival(self)
@@ -66,22 +66,19 @@ class Train
 
   def backward
     return if prev_station.nil?
+
     @current_station.out(self)
     @current_station = prev_station
     @current_station.arrival(self)
   end
 
   def each_carriage
-    @carriages.each {|carriage| yield carriage }
+    @carriages.each { |carriage| yield carriage }
   end
 
   private
 
   def validate!
-    if name !~ FORMAT_NUMBER
-      raise ArgumentError, 'Введите корректный номер'
-    end
+    raise ArgumentError, 'Введите корректный номер' if name !~ FORMAT_NUMBER
   end
-
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'station'
 require_relative 'route'
 require_relative 'train'
@@ -12,9 +14,7 @@ require_relative 'company'
 require_relative 'instance_counter'
 require_relative 'validation'
 
-
 class Main
-
   attr_reader :stations, :routes, :trains
 
   def initialize
@@ -108,7 +108,7 @@ class Main
   end
 
   def show(listing)
-    listing.each.with_index(1){ |item, index| puts "#{index}: #{item.name}" }
+    listing.each.with_index(1) { |item, index| puts "#{index}: #{item.name}" }
   end
 
   def select_listing(listing)
@@ -118,14 +118,14 @@ class Main
   def show_carriges(listing)
     listing.each.with_index(1) do |carriage, index|
       if carriage.type == 'passenger'
-        puts "#{index}: Свободных мест: #{carriage.vacant_seats}; Занятых мест: #{carriage.occupied_seats}"
+        puts "#{index}: Свободных мест: #{carriage.free_capacity};
+                        Занятых мест: #{carriage.occupy_capacity}"
       elsif carriage.type == 'cargo'
-        puts "#{index}: Свободный объем: #{carriage.vacant_volume}; Занятый объем: #{carriage.occupied_volume}"
+        puts "#{index}: Свободный объем: #{carriage.free_capacity};
+                        Занятый объем: #{carriage.occupy_capacity}"
       end
     end
   end
-
-
 
   def create_route
     show(stations)
@@ -235,7 +235,6 @@ class Main
       carriage.occupy_capacity(gets.to_i)
       puts 'Вы заняли объем'
     end
-
   end
 
   def list_carriages_train
@@ -244,9 +243,11 @@ class Main
     train.each_carriage do |carriage|
       puts "Тип #{carriage.type}"
       if carriage.type == 'passenger'
-        puts "Свободных мест: #{carriage.free_capacity}; Занятых мест: #{carriage.occupy_capacity}"
+        puts "Свободных мест: #{carriage.free_capacity};
+              Занятых мест: #{carriage.occupy_capacity}"
       elsif carriage.type == 'cargo'
-        puts "Свободный объем: #{carriage.free_capacity}; Занятый объем: #{carriage.occupy_capacity}"
+        puts "Свободный объем: #{carriage.free_capacity};
+              Занятый объем: #{carriage.occupy_capacity}"
       end
     end
   end
@@ -254,13 +255,13 @@ class Main
   def list_trains_station
     station = select_listing(stations)
     puts "Список поездов на станции '#{station.name}': "
-    station.each_train { |train| puts "Номер № : #{train.name}; Тип: #{train.type}; Вагонов: #{train.carriages.size}" }
+    station.each_train do |train|
+      puts "Номер № : #{train.name}"
+      puts "Тип: #{train.type}"
+      puts "Вагонов: #{train.carriages.size}"
+    end
   end
 end
 
 main = Main.new
 main.start
-
-
-
-

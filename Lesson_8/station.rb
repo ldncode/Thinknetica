@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validation'
 
@@ -34,15 +36,12 @@ class Station
   end
 
   def each_train
-    @trains.each {|train| yield train }
+    @trains.each { |train| yield train }
   end
 
   private
 
   def validate!
-    if name.empty?
-      raise ArgumentError, 'Введите название станции'
-    end
+    raise ArgumentError, 'Введите название станции' if name.empty?
   end
-
 end

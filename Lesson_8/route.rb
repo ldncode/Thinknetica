@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validation'
 
@@ -34,8 +36,6 @@ class Route
   private
 
   def validate!
-    if start_station == final_station
-      raise ArgumentError, 'Укажите разные названия станций'
-    end
+    raise ArgumentError, 'Укажите разные названия станций' if start_station == final_station
   end
 end

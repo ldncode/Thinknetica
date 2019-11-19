@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require_relative 'company'
 require_relative 'validation'
-
 
 class Carriage
   include Producer
@@ -26,6 +27,6 @@ class Carriage
   private
 
   def validate!
-      raise ArgumentError, 'Введите тип вагона' unless types.include?(type)
+    raise ArgumentError, 'Введите тип вагона' unless types.include?(type)
   end
 end

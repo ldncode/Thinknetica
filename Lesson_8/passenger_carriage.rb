@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'carriage'
 
 class PassengerCarriage < Carriage
@@ -11,6 +13,4 @@ class PassengerCarriage < Carriage
   def occupy_capacity
     super(1)
   end
-
 end
-
