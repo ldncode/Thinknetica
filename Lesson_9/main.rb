@@ -23,42 +23,28 @@ class Main
     @routes = []
   end
 
+  MENU = {
+    create_station: 'Создать станцию, введите 1: ',
+    create_train: 'Создать поезд, введите 2: ',
+    create_route: 'Создать маршрут, введите 3: ',
+    set_train_route: 'Назначить маршрут поезду, введите 4: ',
+    control_stations: 'Управление станциями, введите 5: ',
+    add_carriage: 'Добавить вагон к поезду, введите 6: ',
+    unhook_carriage: 'Отцепит вагон от поезда, введите 7: ',
+    oute_forward: 'Переместить поезд по маршруту вперед, введите 8: ',
+    way_back: 'Переместить поезд по маршруту назад, введите 9: ',
+    stations_list: 'Список станций, введите 10: ',
+    trains_list: 'Список поездов, введите 11: ',
+    occupied_carriages: 'Занять место или объем в вагоне, введите 12: ',
+    list_carriages_train: 'Список вагонов у поезда, введите 13: ',
+    list_trains_station: 'Список поездов на станции, введите 14: ',
+    exit: 'Выйти из программы, введите 15: '
+  }.freeze
+
   def start
     loop do
-      menu
-      result = gets.to_i
-      case result
-      when 1
-        create_station
-      when 2
-        create_train
-      when 3
-        create_route
-      when 4
-        set_train_route
-      when 5
-        control_stations
-      when 6
-        add_carriage
-      when 7
-        unhook_carriage
-      when 8
-        route_forward
-      when 9
-        way_back
-      when 10
-        stations_list
-      when 11
-        trains_list
-      when 12
-        occupied_carriages
-      when 13
-        list_carriages_train
-      when 14
-        list_trains_station
-      when 15
-        break
-      end
+      puts MENU.values
+      send(MENU.keys[gets.to_i - 1])
     end
   end
 
