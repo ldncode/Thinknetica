@@ -1,9 +1,15 @@
 require_relative 'accessors'
 
 class Example
-  include Accessors
-
-  attr_accessor_with_history :a, :b, :c
-  strong_attr_accessor :a, Integer
-
+  include Validation
+  validate :a, :presence
+  validate  :type, String
+  validate :format, /[A-Z]/
+  
+  def initialize(a, b, c)
+    @a = a
+    @b = b
+    @c = c
+    validate!
+  end
 end
