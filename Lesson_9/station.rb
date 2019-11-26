@@ -9,6 +9,8 @@ class Station
 
   attr_reader :train, :name
 
+  validate :name, :presence
+
   @@stations = []
 
   def self.all
@@ -39,9 +41,4 @@ class Station
     @trains.each { |train| yield train }
   end
 
-  private
-
-  def validate!
-    raise ArgumentError, 'Введите название станции' if name.empty?
-  end
 end

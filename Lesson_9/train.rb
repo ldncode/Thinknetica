@@ -16,6 +16,8 @@ class Train
 
   @@all_trains = {}
 
+  validate :name, :format, FORMAT_NUMBER
+
   def self.find(id)
     @@all_trains[id]
   end
@@ -76,9 +78,4 @@ class Train
     @carriages.each { |carriage| yield carriage }
   end
 
-  private
-
-  def validate!
-    raise ArgumentError, 'Введите корректный номер' if name !~ FORMAT_NUMBER
-  end
 end
