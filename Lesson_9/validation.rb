@@ -21,11 +21,11 @@ module Validation
         value = instance_variable_get("@#{validate[:name]}")
         case validate[:type]
         when :presence
-          raise ArgumentError 'Пустое значение' if value.nil? || value == ''
+          raise ArgumentError, 'Пустое значение' if value.nil? || value == ''
         when :format
-          raise ArgumentError 'Неправильный формат' if value !~ validate[:args]
+          raise ArgumentError, 'Неправильный формат' if value !~ validate[:args].first
         when :type
-          raise ArgumentError 'Неправильный тип' if value.class != type
+          raise ArgumentError, 'Неправильный тип' if value.class != validate[:args].first
         end
         end
       end
